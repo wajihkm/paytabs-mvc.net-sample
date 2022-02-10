@@ -1,0 +1,39 @@
+﻿@{
+	
+}
+
+<div>
+	@ViewData["Message"]
+</div>
+
+<form asp-action="Create">
+
+	<div class="form-group">
+		<label class="control-label">Amount</label>
+		<input class="form-control" name="amount" type="number" min="1" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Currency</label>
+		<input class="form-control" name="currency" type="text" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Order ID</label>
+		<input class="form-control" name="order_id" type="text" min="1" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Description</label>
+		<input class="form-control" name="desc" type="text" min="1" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">iFrame mode</label>
+		<input name="frammed" type="checkbox" value="true" />
+	</div>
+
+	<div class="form-group">
+		<input type="submit" value="Save" class="btn btn-primary" />
+	</div>
+</form>

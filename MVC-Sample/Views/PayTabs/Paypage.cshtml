@@ -1,0 +1,31 @@
+﻿@model MVC_Sample.Helpers.PaypageResponse
+
+@{
+	ViewData["Title"] = "Paypage Details";
+}
+
+<h1>View</h1>
+
+<div>
+	<h4>PayTabs Paypage</h4>
+	<hr />
+	<dl class="row">
+	</dl>
+</div>
+
+<div>
+	@if ((bool)ViewData["Frammed"]! == true)
+	{
+		<iframe src="@Model.redirect_url" style="min-width: 400px; min-height: 500px;" />
+	}
+	else
+	{
+		<a href="@Model.redirect_url">Payment page</a>
+	}
+</div>
+
+<br />
+<div>
+	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+	<a asp-action="Index">Back to List</a>
+</div>

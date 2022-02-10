@@ -1,18 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MVC_Sample.Helpers;
 
 namespace MVC_Sample.Controllers
 {
     public class PaytabsController : Controller
     {
+
         // GET: PaytabsController
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: PaytabsController/Details/5
-        public ActionResult Details(int id)
         {
             return View();
         }
@@ -23,61 +19,63 @@ namespace MVC_Sample.Controllers
             return View();
         }
 
+
         // POST: PaytabsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(float amount, string currency, string order_id, string desc, bool frammed)
         {
+            //"Id,ProfileId,Endpoint,ServerKey,TranType,TranClass,CartId,CartCurrency,CartAmount,CartDescription,PaypageLang,HideShipping,IsFramed,ReturnURL,CallbackURL"
             try
             {
-                return RedirectToAction(nameof(Index));
+                string return_url = this.Url.Action(nameof(Webhook), null, null, Request.Scheme)!;
+                string callback_url = this.Url.Action(nameof(Ipn), null, null, Request.Scheme)!;
+
+                PaypageResponse res = await PTConnector.CreatePayment(amount, currency, order_id, desc, frammed, return_url, callback_url);
+
+                if (res.IsSuccessful())
+                {
+                    ViewData["Frammed"] = frammed;
+
+                    return View("Paypage", res);
+                }
+
+                ViewData["Message"] = res.message;
+
+                return View();
             }
-            catch
+            catch (Exception ex)
             {
+                ViewData["Message"] = ex.Message;
                 return View();
             }
         }
 
-        // GET: PaytabsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: PaytabsController/Edit/5
+        //
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Webhook([FromForm] PaytabsReturnResponse content)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            System.Console.WriteLine(content);
+
+            return View(content);
         }
 
-        // GET: PaytabsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //
 
-        // POST: PaytabsController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public void Ipn([FromBody] PaytabsIPNResponse ipn)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //using var reader = new StreamReader(Request.Body);
+            //string? body = await reader.ReadToEndAsync();
+            //System.Console.WriteLine(body);
+            //return body;
+
+            System.Console.WriteLine(ipn);
+
+            return;
         }
+
     }
 }
