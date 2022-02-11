@@ -44,43 +44,44 @@ namespace MVC_Sample.Helpers
         }
     }
 
+
     public class PaytabsReturnResponse
     {
-        public string? tranRef;
+        public string tranRef { get; set; }
 
-        public string? respCode;
-        public string? respMessage;
-        public string? respStatus;
+        public string? respCode { get; set; }
+        public string? respMessage { get; set; }
+        public string? respStatus { get; set; }
 
-        public string? acquirerMessage;
-        public string? acquirerRRN;
+        public string? acquirerMessage { get; set; }
+        public string? acquirerRRN { get; set; }
 
-        public string? cartId;
-        public string? customerEmail;
+        public string? cartId { get; set; }
+        public string? customerEmail { get; set; }
 
-        public string? signature;
+        public string? signature { get; set; }
 
-        public string? token;
+        public string? token { get; set; }
     }
 
     public class PaytabsIPNResponse
     {
-        public int merchant_id;
-        public int profile_id;
+        public int merchant_id { get; set; }
+        public int profile_id { get; set; }
 
-        public string? tran_ref;
-        public string? tran_type;
+        public string? tran_ref { get; set; }
+        public string? tran_type { get; set; }
 
-        public float cart_amount;
-        public string? cart_currency;
-        public string? cart_id;
-        public string? cart_description;
+        public float cart_amount { get; set; }
+        public string? cart_currency { get; set; }
+        public string? cart_id { get; set; }
+        public string? cart_description { get; set; }
 
-        public string? tran_class;
-        public string? tran_currency;
-        public float tran_total;
+        public string? tran_class { get; set; }
+        public string? tran_currency { get; set; }
+        public float tran_total { get; set; }
 
-        public PaymentResult? payment_result;
+        public PaymentResult? payment_result { get; set; }
 
         //public CustomerDetails customer_details;
         //public Payment_Info payment_info;
@@ -88,13 +89,13 @@ namespace MVC_Sample.Helpers
 
     public class PaymentResult
     {
-        public string? response_status;
-        public string? response_code;
-        public string? response_message;
+        public string? response_status{ get; set; }
+        public string? response_code{ get; set; }
+        public string? response_message{ get; set; }
 
-        public string? cvv_result;
-        public string? avs_result;
+        public string? cvv_result{ get; set; }
+        public string? avs_result{ get; set; }
 
-        public DateTime transaction_time;
+        public DateTime transaction_time{ get; set; }
     }
 }
