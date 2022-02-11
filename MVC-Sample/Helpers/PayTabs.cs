@@ -47,7 +47,7 @@ namespace MVC_Sample.Helpers
 
     public class PaytabsReturnResponse
     {
-        public string tranRef { get; set; }
+        public string? tranRef { get; set; }
 
         public string? respCode { get; set; }
         public string? respMessage { get; set; }
